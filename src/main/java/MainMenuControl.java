@@ -1,7 +1,6 @@
 import org.apache.commons.validator.routines.EmailValidator;
 
 public class MainMenuControl {
-// tu zaszla zmiania
 
     public void deleteUser() {
         KeyboardReader kr = new KeyboardReader();
