@@ -1,10 +1,11 @@
 public class Main01 {
     public static void main(String[] args) {
-        KeyboardReader kr = new KeyboardReader();
-        int result = kr.readInt(7);
+ //       KeyboardReader kr = new KeyboardReader();
+        int result = KeyboardReader.readInt(7);
         System.out.println(result);
-        KeyboardReader kr1 = new KeyboardReader();
-        String result1 = kr1.readString();
+
+        String result1 = KeyboardReader.readString();
         System.out.println(result1);
+        KeyboardReader.close();
     }
 }

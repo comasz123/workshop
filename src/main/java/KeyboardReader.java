@@ -2,15 +2,16 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class KeyboardReader {
-     private Scanner sc = new Scanner(System.in);
+     private static final Scanner sc = new Scanner(System.in);
 
-    public void close() {sc.close();}
+     private KeyboardReader(){}
 
-    public int readInt(int range) {
+    public static void close() {sc.close();}
+
+    public static int readInt(int range) {
 
         boolean choice = true;
         int result = -1;
- //       Scanner sc = new Scanner(System.in);
 
         while (choice) {
             try {
@@ -19,19 +20,18 @@ public class KeyboardReader {
                     choice = false;
                 } else {
                     System.out.println("Podaj liczbę całkowitą pomiędzy 1-" + range);
-                    sc.next();}
+                    }
 
             } catch (InputMismatchException ex) {
                 System.out.println("Podaj liczbę całkowitą pomiędzy 1-"+range);
+                sc.nextLine();
             }
         }
-   //     sc.close();
+        sc.nextLine();
         return result;
     }
-    public String readString() {
-    //    Scanner sc = new Scanner(System.in);
+    public static String readString() {
         String result= sc.nextLine();
-    //    sc.close();
 
         return result;
     }

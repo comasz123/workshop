@@ -3,13 +3,12 @@ import org.apache.commons.validator.routines.EmailValidator;
 public class MainMenuControl {
 
     public void deleteUser() {
-        KeyboardReader kr = new KeyboardReader();
         UserDao userDao = new UserDao();
 
         userDao.countUsers();
         System.out.println("Podaj id użytkownika:");
         int limit = userDao.lastIdValue();
-        int id = kr.readInt(limit);
+        int id = KeyboardReader.readInt(limit);
 
         userDao.displayName(id);
         userDao.delete(id);
@@ -30,17 +29,16 @@ public class MainMenuControl {
     }
 
     public void createUser() {
-        KeyboardReader kr = new KeyboardReader();
         UserDao userDao = new UserDao();
         boolean validate = true;
         String email = null;
 
         System.out.println("Podaj imię i nazwisko:");
-        String name = kr.readString();
+        String name = KeyboardReader.readString();
 
         while (validate) {
             System.out.println("Podaj email:");
-            email = kr.readString();
+            email = KeyboardReader.readString();
             if (emailValidator(email)) {
                 validate = false;
             } else {
@@ -50,7 +48,7 @@ public class MainMenuControl {
         }
 
         System.out.println("Podaj hasło");
-        String password = kr.readString();
+        String password = KeyboardReader.readString();
         String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
         userDao.add(name, pw_hash, email);
         System.out.println("--------------------");
@@ -62,26 +60,24 @@ public class MainMenuControl {
     public void editUser() {
         int pickUser = -1;
         UserDao userDao = new UserDao();
-        KeyboardReader kr = new KeyboardReader();
         boolean validate = true;
         String email = null;
 
         userDao.countUsers();
         System.out.println("Podaj ID użytkownika:");
         int limit = userDao.lastIdValue();
-        pickUser = kr.readInt(limit);
+        pickUser = KeyboardReader.readInt(limit);
         if (!userDao.haveSuchUser(pickUser)) {
             System.out.println("Nie ma takiego użytkownika");
         } else {
             System.out.println("Edytujemy użytkownika: " + pickUser);
-            KeyboardReader kr1 = new KeyboardReader();
             System.out.println("Podaj imię i nazwisko:");
-            String newName = kr1.readString();
+            String newName = KeyboardReader.readString();
             System.out.println("Podaj email: ");
 
             while (validate) {
                 System.out.println("Podaj email:");
-                email = kr.readString();
+                email = KeyboardReader.readString();
                 if (emailValidator(email)) {
                     validate = false;
                 } else {
@@ -89,7 +85,7 @@ public class MainMenuControl {
                 }
             }
 
-            String newEmail = kr1.readString();
+            String newEmail = KeyboardReader.readString();
             userDao.edit(pickUser, newName, newEmail);
 
             System.out.println("--------------------");
@@ -102,17 +98,15 @@ public class MainMenuControl {
 
     public void logUser() {
         UserDao userDao = new UserDao();
-        KeyboardReader kr = new KeyboardReader();
         String password = null;
 
         userDao.countUsers();
         System.out.println("Podaj id użytkownika:");
         int limit = userDao.lastIdValue();
-        int id = kr.readInt(limit);
-        KeyboardReader kr1 = new KeyboardReader();
+        int id = KeyboardReader.readInt(limit);
 
         System.out.println("Podaj hasło");
-        password = kr1.readString();
+        password = KeyboardReader.readString();
         String stored_hash = userDao.returnPassword(id);
         if (BCrypt.checkpw(password, stored_hash)) {
             System.out.println("użytkownik zalogowany");
