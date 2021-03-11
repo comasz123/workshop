@@ -12,20 +12,18 @@ public class KeyboardReader {
         int result = -1;
         Scanner sc = new Scanner(System.in);
 
-
         while (choice) {
             try {
                 result = sc.nextInt();
+                sc.next();
                 if (result>0 && result<=range) {
                     choice = false;
-                    sc.next();
                 } else {
                     System.out.println("Podaj liczbę całkowitą pomiędzy 1-"+range);
                 }
 
             } catch (InputMismatchException ex) {
                 System.out.println("Podaj liczbę całkowitą pomiędzy 1-"+range);
-                sc.next();
             }
 
         }
