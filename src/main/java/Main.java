@@ -5,6 +5,7 @@ public class Main {
         MainMenuControl mmc = new MainMenuControl();
 
         UserDao.createDBIfNotExist();
+        // tu zaszla zmiania
 
         do {
             printMenu();
