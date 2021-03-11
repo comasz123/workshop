@@ -4,6 +4,8 @@ import java.util.Scanner;
 public class KeyboardReader {
     private Scanner sc = new Scanner(System.in);
 
+    // wprowadzilem zmiany
+
     public void close() {
         sc.close();
     }
