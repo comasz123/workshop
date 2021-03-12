@@ -1,10 +1,10 @@
 public enum MainMenu {
-    ADD_USER(1, "Dodaj Użytkownika"),
+    ADD_USER(1, "Dodaj użytkownika"),
     DEL_USER(2, "Usuń użytkownika"),
     EDIT_USER(3, "Edytuj użytkownika"),
     LIST_USERS(4, "Lista użytkowników"),
     LOG_USER(5, "Zaloguj użytkownika"),
-    NEW_IDS(6, "Uporządkuj indexy (ids)"),
+    NEW_IDS(6, "Uporządkuj indexy (IDs)"),
     EXIT(7, "KONIEC");
   //  DO_NOTHING(11,"NIC");
 

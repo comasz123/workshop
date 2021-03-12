@@ -28,9 +28,7 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
-
 
     public static void createDBIfNotExist(Connection connection, String database) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(database)) {
@@ -52,7 +50,7 @@ public class DBUtil {
         User[] users = new User[0];
 
         try (PreparedStatement statement = conn.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery();) {
+             ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
 
                 String[] array = new String[columnNames.length];
@@ -70,7 +68,7 @@ public class DBUtil {
 
     public static void printUserName(Connection conn, String query, int id) {
 
-        try (PreparedStatement statement = conn.prepareStatement(query);) {
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next() == true) {
@@ -90,7 +88,7 @@ public class DBUtil {
     public static int getRowIDValue(Connection conn, String query, int rowNumber) {
         int result = -1;
 
-        try (PreparedStatement statement = conn.prepareStatement(query);) {
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
 
             statement.setInt(1, rowNumber - 1);
             ResultSet resultSet = statement.executeQuery();
@@ -105,7 +103,7 @@ public class DBUtil {
 
     public static void editUser(Connection conn, String query, String newName, String newEmail, int id) {
         try (PreparedStatement statement =
-                     conn.prepareStatement(query.replace("newName", newName).replace("newEmail", newEmail));) {
+                     conn.prepareStatement(query.replace("newName", newName).replace("newEmail", newEmail))) {
             statement.setInt(1, id);
             statement.executeUpdate();
 
@@ -117,7 +115,7 @@ public class DBUtil {
 
     public static void remove(Connection conn, String query, int id) {
         try (PreparedStatement statement =
-                     conn.prepareStatement(query);) {
+                     conn.prepareStatement(query)) {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (Exception e) {

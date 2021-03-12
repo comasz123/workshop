@@ -70,19 +70,17 @@ public class MainMenuControl {
             System.out.println("Edytujemy użytkownika: " + pickUser);
             System.out.println("Podaj imię i nazwisko:");
             String newName = KeyboardReader.readString();
-            System.out.println("Podaj email: ");
-
+            String newEmail=null;
             while (validate) {
                 System.out.println("Podaj email:");
-                String email = KeyboardReader.readString();
-                if (emailValidator(email)) {
+                newEmail = KeyboardReader.readString();
+                if (emailValidator(newEmail)) {
                     validate = false;
                 } else {
                     System.out.println("to nie jest adres email");
                 }
             }
 
-            String newEmail = KeyboardReader.readString();
             userDao.edit(pickUser, newName, newEmail);
 
             System.out.println("--------------------");
@@ -111,7 +109,8 @@ public class MainMenuControl {
 
         }
     }
-    public void reindexUsers(){
+
+    public void reindexUsers() {
         UserDao userDao = new UserDao();
 
         User[] users = userDao.findAll();
