@@ -2,8 +2,10 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 public class MainMenuControl {
 
+    UserDao userDao = new UserDao();
+
     public void deleteUser() {
-        UserDao userDao = new UserDao();
+  //      UserDao userDao = new UserDao();
 
         userDao.countUsers();
         int limit = userDao.lastIdValue();
@@ -15,28 +17,26 @@ public class MainMenuControl {
     }
 
     public void listUsers() {
-        UserDao userDao = new UserDao();
+  //      UserDao userDao = new UserDao();
 
         User[] users = userDao.findAll();
         System.out.println("--------------------");
         for (User user : users) {
-            System.out.println(user.userToString());
+            System.out.println(user.toString());
         }
         System.out.println("--------------------");
 
     }
 
     public void createUser() {
-        UserDao userDao = new UserDao();
+ //       UserDao userDao = new UserDao();
         boolean validate = true;
         String email = null;
 
-        System.out.println("Podaj imię i nazwisko:");
-        String name = KeyboardReader.readString();
+        String name = KeyboardReader.readString("Podaj imię i nazwisko:");
 
         while (validate) {
-            System.out.println("Podaj email:");
-            email = KeyboardReader.readString();
+            email = KeyboardReader.readString("Podaj email:");
             if (emailValidator(email)) {
                 validate = false;
             } else {
@@ -45,18 +45,17 @@ public class MainMenuControl {
 
         }
 
-        System.out.println("Podaj hasło");
-        String password = KeyboardReader.readString();
+        String password = KeyboardReader.readString("Podaj hasło");
         String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
         userDao.add(name, pw_hash, email);
         System.out.println("--------------------");
-        System.out.println("Dodano nowego użytkownika:");
+        System.out.print("Dodano nowego użytkownika: ");
         System.out.println(name);
         System.out.println("--------------------");
     }
 
     public void editUser() {
-        UserDao userDao = new UserDao();
+  //      UserDao userDao = new UserDao();
         boolean validate = true;
 
         userDao.countUsers();
@@ -66,12 +65,10 @@ public class MainMenuControl {
             System.out.println("Nie ma takiego użytkownika");
         } else {
             System.out.println("Edytujemy użytkownika: " + pickUser);
-            System.out.println("Podaj imię i nazwisko:");
-            String newName = KeyboardReader.readString();
+            String newName = KeyboardReader.readString("Podaj imię i nazwisko:");
             String newEmail=null;
             while (validate) {
-                System.out.println("Podaj email:");
-                newEmail = KeyboardReader.readString();
+                newEmail = KeyboardReader.readString("Podaj email:");
                 if (emailValidator(newEmail)) {
                     validate = false;
                 } else {
@@ -90,14 +87,13 @@ public class MainMenuControl {
     }
 
     public void logUser() {
-        UserDao userDao = new UserDao();
+  //      UserDao userDao = new UserDao();
 
         userDao.countUsers();
         int limit = userDao.lastIdValue();
         int id = KeyboardReader.readInt(limit, "Podaj id użytkownika:");
 
-        System.out.println("Podaj hasło");
-        String password = KeyboardReader.readString();
+        String password = KeyboardReader.readString("Podaj hasło");
         String stored_hash = userDao.returnPassword(id);
         if (BCrypt.checkpw(password, stored_hash)) {
             System.out.println("użytkownik zalogowany");
@@ -107,13 +103,13 @@ public class MainMenuControl {
         }
     }
 
-    public void reindexUsers() {
-        UserDao userDao = new UserDao();
-
-        User[] users = userDao.findAll();
-        userDao.delete_table();
-        userDao.redoUsers(users);
-
+    public User findUser() {
+  //      UserDao userDao = new UserDao();
+        userDao.countUsers();
+        int limit = userDao.lastIdValue();
+        int id = KeyboardReader.readInt(limit, "Podaj id użytkownika:");
+        User user = userDao.find(id);
+        return user;
     }
 
     public boolean emailValidator(String email) {

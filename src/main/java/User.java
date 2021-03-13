@@ -33,9 +33,14 @@ public class User {
 
     public String getEmail() {
         return email;
-
     }
+
     public String userToString(){
+        return "-----------------\n"+this.name+ " email: "+this.email+"-----------------\n"+"\n";
+    }
+    @Override
+    public String toString(){
         return this.id+". "+this.name+ " email: "+this.email;
     }
+
 }

@@ -37,6 +37,7 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
+
     public static void createTableIfNotExist(Connection connection, String table) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(table)) {
             statement.executeUpdate();
@@ -65,12 +66,33 @@ public class DBUtil {
         return users;
     }
 
+    public static User selectUser(Connection conn, String query, int id) throws SQLException {
+        String[] array = new String[0];
+        User user = new User(0, "", "", "");
+
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                    for (int i = 0; i < 3; i++) {
+                        array = Arrays.copyOf(array, i+ 1);
+                        array[i] = resultSet.getString(i + 1);
+                    }
+                user = new User(id, array[0], array[1], array[2]);
+            } else {
+                System.out.println("Użytkownik o podanym id nie istnieje");
+            }
+        }
+        return user;
+    }
+
     public static void printUserName(Connection conn, String query, int id) {
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next() == true) {
+            if (resultSet.next()) {
                 String name = resultSet.getString(1);
                 System.out.println("Usunięto użytkownika:");
                 System.out.println(name);

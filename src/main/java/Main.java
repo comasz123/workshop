@@ -33,8 +33,8 @@ public class Main {
                     mmc.logUser ();
                     break;
 
-                case NEW_IDS:
-                    mmc.reindexUsers();
+                case FIND_USER:
+                    System.out.println(mmc.findUser().userToString());
                     break;
 
                 case EXIT:

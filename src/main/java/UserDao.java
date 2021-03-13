@@ -16,6 +16,8 @@ public class UserDao {
             "CREATE TABLE IF NOT EXISTS users (id int auto_increment UNIQUE, name VARCHAR(100), password VARCHAR(60), email VARCHAR(50) UNIQUE, PRIMARY KEY (id));";
     public static String RETRIEVE_PASSWORD = "SELECT password FROM users WHERE id = ?;";
     public static String DROP_TABLE = "DROP TABLE users;";
+    public static String SELECT_USER = "SELECT name,password,email FROM users WHERE id = ?;";
+
 
     public void delete_table(){
         try (Connection connect = DBUtil.connect()) {
@@ -32,16 +34,20 @@ public class UserDao {
             e.printStackTrace();
         }
     }
-    public void redoUsers(User[] users){
-        try (Connection connect = DBUtil.connect()){
-            DBUtil.createTableIfNotExist(connect, CREATE_TABLE_IF_NOT_EXISTS);
-            for (User user:users) {
-                DBUtil.insert(connect, INSERT_INTO_USERS, user.getName(), user.getPassword(), user.getEmail());
-            }
-        } catch (Exception e) {
+  public User find(int id){
+        User user = new User(0,"","","");
+
+      try(Connection connect = DBUtil.connect()){
+          user = DBUtil.selectUser(connect, SELECT_USER, id);
+
+        }catch (Exception e) {
             e.printStackTrace();
         }
-    }
+        return user;
+  }
+
+
+
     static void createDBIfNotExist() {
         try (Connection connect = DBUtil.connect()) {
             DBUtil.createDBIfNotExist(connect, CREATE_DATABASE_IF_NOT_EXIST);

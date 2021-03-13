@@ -33,9 +33,9 @@ public class KeyboardReader {
         sc.nextLine();
         return result;
     }
-    public static String readString() {
-        String result = sc.nextLine();
-        return result;
+    public static String readString(String message) {
+        System.out.println(message);
+        return sc.nextLine();
     }
 
 }
