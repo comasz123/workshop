@@ -6,9 +6,8 @@ public class MainMenuControl {
         UserDao userDao = new UserDao();
 
         userDao.countUsers();
-        System.out.println("Podaj id użytkownika:");
         int limit = userDao.lastIdValue();
-        int id = KeyboardReader.readInt(limit);
+        int id = KeyboardReader.readInt(limit, "Podaj id użytkownika:");
 
         userDao.displayName(id);
         userDao.delete(id);
@@ -61,9 +60,8 @@ public class MainMenuControl {
         boolean validate = true;
 
         userDao.countUsers();
-        System.out.println("Podaj ID użytkownika:");
         int limit = userDao.lastIdValue();
-        int pickUser = KeyboardReader.readInt(limit);
+        int pickUser = KeyboardReader.readInt(limit, "Podaj ID użytkownika:");
         if (!userDao.haveSuchUser(pickUser)) {
             System.out.println("Nie ma takiego użytkownika");
         } else {
@@ -95,9 +93,8 @@ public class MainMenuControl {
         UserDao userDao = new UserDao();
 
         userDao.countUsers();
-        System.out.println("Podaj id użytkownika:");
         int limit = userDao.lastIdValue();
-        int id = KeyboardReader.readInt(limit);
+        int id = KeyboardReader.readInt(limit, "Podaj id użytkownika:");
 
         System.out.println("Podaj hasło");
         String password = KeyboardReader.readString();

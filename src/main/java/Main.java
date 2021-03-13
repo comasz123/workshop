@@ -8,7 +8,7 @@ public class Main {
 
         while (menuChoice) {
             printMenu();
-            int i = KeyboardReader.readInt(MainMenu.EXIT.getValue());
+            int i = KeyboardReader.readInt(MainMenu.EXIT.getValue(),"Co robimy?");
             option = MainMenu.createFromInt(i);
 
             switch (option) {

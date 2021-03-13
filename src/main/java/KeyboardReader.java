@@ -10,10 +10,11 @@ public class KeyboardReader {
 
     public static void close() {sc.close();}
 
-    public static int readInt(int range) {
+    public static int readInt(int range, String message) {
 
         boolean choice = true;
         int result = -1;
+        System.out.println(message);
 
         while (choice) {
             try {
